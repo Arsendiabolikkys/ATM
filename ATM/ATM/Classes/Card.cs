@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace ATM.Classes
 {
-    public class User
+    public class Card
     {
         public string CardNumber { get; private set; }
         public string Password { get; private set; }
         public double AmountOfMoney { get; private set; }
 
-        public User(string cardNumber = null, string password = null, double amountOfMoney = 0)
+        public Card(string cardNumber = null, string password = null, double amountOfMoney = 0)
         {
             CardNumber = cardNumber;
             Password = password;

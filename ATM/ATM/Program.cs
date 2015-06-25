@@ -14,7 +14,7 @@ namespace ATM
         {
             Game game = new Game("Game", 1920, 1080); //creates a game with internal resolution 1920 x 1080
             game.SetWindow(1600, 900); //outputs the game to a window scaled down to 1600 x 900
-
+            Classes.ATM atm = new Classes.ATM();
             game.Start(); //starts the game loop
         }
     }
