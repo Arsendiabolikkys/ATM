@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace ATM.Classes
 {
@@ -18,5 +19,31 @@ namespace ATM.Classes
             Password = password;
             AmountOfMoney = amountOfMoney;
         }
+
+        public void SaveCard()
+        {
+            string path = @"data\Cards.txt";
+            string text;
+            List<Card> cards = new List<Card>();
+            using (StreamReader sr = new StreamReader(path, System.Text.Encoding.Default))
+            {
+                while (!String.IsNullOrEmpty(text = sr.ReadLine()))
+                {
+                    cards.Add(new Card(text, sr.ReadLine(), Double.Parse(sr.ReadLine())));
+                }
+            }
+            cards.Find(x => x.CardNumber.Equals(this.CardNumber)).AmountOfMoney = this.AmountOfMoney;
+            using (StreamWriter sw = new StreamWriter(path, false, System.Text.Encoding.Default))
+            {
+                foreach (var item in cards)
+                {
+                    sw.WriteLine(item.CardNumber);
+                    sw.WriteLine(item.Password);
+                    sw.WriteLine(item.AmountOfMoney);
+                }
+            }
+        }
+
+        
     }
 }
