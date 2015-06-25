@@ -20,6 +20,7 @@ d:\users\шурик\documents\visual studio 2012\Projects\ATM\ATM\obj\Debug\ATM.
 D:\Документы\ЖДТУ\ооп\Кныш\ATM\ATM\ATM\bin\Debug\ATM.exe.config
 D:\Документы\ЖДТУ\ооп\Кныш\ATM\ATM\ATM\obj\Debug\ATM.exe
 D:\Документы\ЖДТУ\ооп\Кныш\ATM\ATM\ATM\obj\Debug\ATM.pdb
+<<<<<<< HEAD
 D:\Документы\ЖДТУ\ооп\Кныш\ATM\ATM\ATM\bin\Debug\libsndfile-1.dll
 D:\Документы\ЖДТУ\ооп\Кныш\ATM\ATM\ATM\bin\Debug\openal32.dll
 D:\Документы\ЖДТУ\ооп\Кныш\ATM\ATM\ATM\bin\Debug\csfml-audio-2.dll
@@ -36,3 +37,24 @@ D:\Документы\ЖДТУ\ооп\Кныш\ATM\ATM\ATM\bin\Debug\sfmlnet-gra
 D:\Документы\ЖДТУ\ооп\Кныш\ATM\ATM\ATM\bin\Debug\sfmlnet-window-2.xml
 D:\Документы\ЖДТУ\ооп\Кныш\ATM\ATM\ATM\bin\Debug\sfmlnet-audio-2.xml
 D:\Документы\ЖДТУ\ооп\Кныш\ATM\ATM\ATM\obj\Debug\ATM.csprojResolveAssemblyReference.cache
+=======
+D:\Users\Шурик\Documents\GitHub\ATM\ATM\ATM\bin\Debug\ATM.exe.config
+D:\Users\Шурик\Documents\GitHub\ATM\ATM\ATM\obj\Debug\ATM.exe
+D:\Users\Шурик\Documents\GitHub\ATM\ATM\ATM\obj\Debug\ATM.pdb
+D:\Users\Шурик\Documents\GitHub\ATM\ATM\ATM\bin\Debug\libsndfile-1.dll
+D:\Users\Шурик\Documents\GitHub\ATM\ATM\ATM\bin\Debug\openal32.dll
+D:\Users\Шурик\Documents\GitHub\ATM\ATM\ATM\bin\Debug\csfml-audio-2.dll
+D:\Users\Шурик\Documents\GitHub\ATM\ATM\ATM\bin\Debug\csfml-graphics-2.dll
+D:\Users\Шурик\Documents\GitHub\ATM\ATM\ATM\bin\Debug\csfml-window-2.dll
+D:\Users\Шурик\Documents\GitHub\ATM\ATM\ATM\bin\Debug\ATM.exe
+D:\Users\Шурик\Documents\GitHub\ATM\ATM\ATM\bin\Debug\ATM.pdb
+D:\Users\Шурик\Documents\GitHub\ATM\ATM\ATM\bin\Debug\Otter.dll
+D:\Users\Шурик\Documents\GitHub\ATM\ATM\ATM\bin\Debug\sfmlnet-graphics-2.dll
+D:\Users\Шурик\Documents\GitHub\ATM\ATM\ATM\bin\Debug\sfmlnet-window-2.dll
+D:\Users\Шурик\Documents\GitHub\ATM\ATM\ATM\bin\Debug\sfmlnet-audio-2.dll
+D:\Users\Шурик\Documents\GitHub\ATM\ATM\ATM\bin\Debug\Otter.pdb
+D:\Users\Шурик\Documents\GitHub\ATM\ATM\ATM\bin\Debug\sfmlnet-graphics-2.xml
+D:\Users\Шурик\Documents\GitHub\ATM\ATM\ATM\bin\Debug\sfmlnet-window-2.xml
+D:\Users\Шурик\Documents\GitHub\ATM\ATM\ATM\bin\Debug\sfmlnet-audio-2.xml
+D:\Users\Шурик\Documents\GitHub\ATM\ATM\ATM\obj\Debug\ATM.csprojResolveAssemblyReference.cache
+>>>>>>> origin/master
