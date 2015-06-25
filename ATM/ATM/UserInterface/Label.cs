@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Otter;
 
 
-namespace ATM.UI
+namespace ATM.UserInterface
 {
     class Label : Entity
     {
@@ -14,8 +14,21 @@ namespace ATM.UI
         public Label(float x, float y, string text, Color color)
         {
             SetGraphic(new Text());
+            Graphic.CenterOrigin();
             ((Text)Graphic).OutlineColor = Color.Black;
-            ((Text)Graphic).OutlineThickness = 2;
+            //((Text)Graphic).OutlineThickness = 2;
+            ((Text)Graphic).String = text;
+            ((Text)Graphic).Color = color;
+            X = x;
+            Y = y;
+        }
+
+        public Label(float x, float y, string text, Color color, int size=16)
+        {
+            SetGraphic(new Text(size));
+            Graphic.CenterOrigin();
+            ((Text)Graphic).OutlineColor = Color.Black;
+            //((Text)Graphic).OutlineThickness = 2;
             ((Text)Graphic).String = text;
             ((Text)Graphic).Color = color;
             X = x;
@@ -25,8 +38,9 @@ namespace ATM.UI
         public Label(float x, float y, string text, Color color, int Lifespan, bool isFloat = false, int size = 16)
         {
             SetGraphic(new Text(size));
+            Graphic.CenterOrigin();
             ((Text)Graphic).OutlineColor = Color.Black;
-            ((Text)Graphic).OutlineThickness = 2;
+            //((Text)Graphic).OutlineThickness = 2;
             ((Text)Graphic).String = text;
             ((Text)Graphic).Color = color;
             X = x;

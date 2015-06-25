@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Otter;
 
-namespace ATM.UI
+namespace ATM.UserInterface
 {
     class Cursor : Entity
     {
@@ -13,6 +13,7 @@ namespace ATM.UI
         public Cursor()
         {
             SetGraphic(new Image(Assets.Cursor));
+            Graphic.CenterOrigin();
         }
 
         public override void Update()

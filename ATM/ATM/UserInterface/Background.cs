@@ -6,10 +6,16 @@ using System.Threading.Tasks;
 using Otter;
 
 
-namespace ATM.UI
+namespace ATM.UserInterface
 {
     class Background : Entity
     {
-        
+        private Image BackgroundImage;
+
+        public Background(string path)
+        {
+            BackgroundImage = new Image(path);
+            SetGraphic(BackgroundImage);
+        }
     }
 }

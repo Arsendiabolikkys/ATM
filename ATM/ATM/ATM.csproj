@@ -47,13 +47,18 @@
     <Compile Include="GameScene.cs" />
     <Compile Include="Global.cs" />
     <Compile Include="UserInterface\Background.cs" />
+    <Compile Include="UserInterface\Button.cs" />
     <Compile Include="UserInterface\Cursor.cs" />
     <Compile Include="UserInterface\Label.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UserInterface\TextEditBox.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="UserInterface\Resources\background.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Otter\kylepulver-otter-d16665a46412\Otter\Otter.csproj">
