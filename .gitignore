@@ -15,6 +15,10 @@ local.properties
 .classpath
 .settings/
 .loadpath
+ATM.exe
+ATM.pdb
+Otter.dll
+Otter.pdb
 
 # External tool builders
 .externalToolBuilders/

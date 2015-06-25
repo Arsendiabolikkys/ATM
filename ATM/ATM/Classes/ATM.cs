@@ -24,23 +24,30 @@ namespace ATM.Classes
 
             string path = @"data\ATM.txt";
             string text;
-            using (StreamReader sr = new StreamReader(path, System.Text.Encoding.Default))
+            try
             {
-                while (!String.IsNullOrEmpty(text = sr.ReadLine()))
+                using (StreamReader sr = new StreamReader(path, System.Text.Encoding.Default))
                 {
-                    Money.Add(new Cash(Int32.Parse(text), Int32.Parse(sr.ReadLine())));
+                    while (!String.IsNullOrEmpty(text = sr.ReadLine()))
+                    {
+                        Money.Add(new Cash(Int32.Parse(text), Int32.Parse(sr.ReadLine())));
+                    }
+                    RatingsCount = Money.Count;
+                    SetMinMax();
                 }
-                RatingsCount = Money.Count;
-                SetMinMax();
-            }
 
-            path = @"data\Cards.txt";
-            using (StreamReader sr = new StreamReader(path, System.Text.Encoding.Default))
-            {
-                while (!String.IsNullOrEmpty(text = sr.ReadLine()))
+                path = @"data\Cards.txt";
+                using (StreamReader sr = new StreamReader(path, System.Text.Encoding.Default))
                 {
-                    AvailableCards.Add(new Card(text, sr.ReadLine(), Double.Parse(sr.ReadLine())));
+                    while (!String.IsNullOrEmpty(text = sr.ReadLine()))
+                    {
+                        AvailableCards.Add(new Card(text, sr.ReadLine(), Double.Parse(sr.ReadLine())));
+                    }
                 }
+            }
+            catch(Exception ex)
+            {
+                //сбой базы данных
             }
         }
 
@@ -51,25 +58,24 @@ namespace ATM.Classes
                 if (IsValidPassword(cardNumber, password))
                 {
                     CurrentCard = AvailableCards.Find(x => x.CardNumber.Equals(cardNumber));
-                    //Menu();
                 }
                 else 
                 {
-                    Console.WriteLine("wrong pass");
+                    //Console.WriteLine("wrong pass");
                 }
             }
             else 
             {
-                Console.WriteLine("card is not exist");
+                //Console.WriteLine("card is not exist");
             }
         }
 
-        private double CurrentCardAvailableMoney()
+        public double CurrentCardAvailableMoney()
         {
             return CurrentCard.ShowAvailableMoney();
         }
 
-        private void SaveATM()
+        public void SaveATM()
         {
             CurrentCard.SaveCard();
             using (StreamWriter sw = new StreamWriter(@"data\ATM.txt", false, System.Text.Encoding.Default))
@@ -102,7 +108,7 @@ namespace ATM.Classes
             }
         }
 
-        private void TakeMoney(int sum)
+        public void TakeMoney(int sum)
         {
             int count = 0;
             int[] counts = new int[RatingsCount];
@@ -130,15 +136,6 @@ namespace ATM.Classes
                                         }                                        
                                         sum = 0;
                                         enable = true;
-                                        //printf("take your money!\n");
-                                        //if (count500) printf("%d - 500\n", count500);
-                                        //if (count200) printf("%d - 200\n", count200);
-                                        //if (count100) printf("%d - 100\n", count100);
-                                        //if (count50) printf("%d - 50\n", count50);
-                                        //if (count20) printf("%d - 20\n", count20);
-                                        //if (count10) printf("%d - 10\n", count10);
-                                        //printf("press any key to continue\n");
-                                        //getch();
                                     }
                                 }
                             }
@@ -149,8 +146,6 @@ namespace ATM.Classes
             if (!enable)
             {
                 //не валидная сумма
-                //printf("incorrect operation\nPress any key to continue\n");
-                //getch();
             }
         }
 

@@ -17,8 +17,9 @@ namespace ATM
         public static string Button = @"../../UserInterface/Resources/button.png";
     }
 
-    class Global
+    public class Global
     {
+        public static Classes.ATM atm = new Classes.ATM();
         public static Session User;
     }
 

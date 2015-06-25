@@ -27,7 +27,6 @@ D:\Документы\ЖДТУ\ооп\Кныш\ATM\ATM\ATM\Otter\kylepulver-otte
 D:\Документы\ЖДТУ\ооп\Кныш\ATM\ATM\ATM\Otter\kylepulver-otter-d16665a46412\Otter\bin\Debug\sfmlnet-audio-2.xml
 D:\Документы\ЖДТУ\ооп\Кныш\ATM\ATM\ATM\Otter\kylepulver-otter-d16665a46412\Otter\bin\Debug\sfmlnet-graphics-2.xml
 D:\Документы\ЖДТУ\ооп\Кныш\ATM\ATM\ATM\Otter\kylepulver-otter-d16665a46412\Otter\bin\Debug\sfmlnet-window-2.xml
-D:\Документы\ЖДТУ\ооп\Кныш\ATM\ATM\ATM\Otter\kylepulver-otter-d16665a46412\Otter\obj\x86\Debug\Otter.csprojResolveAssemblyReference.cache
 D:\Документы\ЖДТУ\ооп\Кныш\ATM\ATM\ATM\Otter\kylepulver-otter-d16665a46412\Otter\obj\x86\Debug\Otter.dll
 D:\Документы\ЖДТУ\ооп\Кныш\ATM\ATM\ATM\Otter\kylepulver-otter-d16665a46412\Otter\obj\x86\Debug\Otter.pdb
 D:\Users\Шурик\Documents\GitHub\ATM\ATM\ATM\Otter\kylepulver-otter-d16665a46412\Otter\bin\Debug\libsndfile-1.dll

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Otter;
 using ATM.UserInterface;
+using ATM.Classes;
 
 namespace ATM
 {
@@ -37,12 +38,13 @@ namespace ATM
 
         public void ShowCash()
         {
-            //::TODO
+            double currentMoney = Global.atm.CurrentCardAvailableMoney();
         }
 
         public void GetCash()
         {
-            //::TODO
+            int money = 0;
+            Global.atm.TakeMoney(money);
         }
 
         public void ShowAuthorizeForm()
@@ -56,7 +58,9 @@ namespace ATM
             Add(new Label(250, 280, "Пароль", Color.Black));
             Add(new ATM.UserInterface.Button(Assets.Button, 330, 400, Assets.Button, delegate()
                 {
-                    //::TODO
+                    string cardNumber = "";
+                    string password = "";
+                    Global.atm.RunATM(cardNumber, password);
                 }));
             Add(new Label(380, 400, "Подтвердить", Color.White));
         }
