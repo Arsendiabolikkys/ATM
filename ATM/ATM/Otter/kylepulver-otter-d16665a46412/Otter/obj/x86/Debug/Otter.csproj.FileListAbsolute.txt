@@ -1,0 +1,16 @@
+D:\Users\Шурик\Documents\Visual Studio 2012\Projects\ATM\ATM\Otter\kylepulver-otter-d16665a46412\Otter\bin\Debug\libsndfile-1.dll
+D:\Users\Шурик\Documents\Visual Studio 2012\Projects\ATM\ATM\Otter\kylepulver-otter-d16665a46412\Otter\bin\Debug\openal32.dll
+D:\Users\Шурик\Documents\Visual Studio 2012\Projects\ATM\ATM\Otter\kylepulver-otter-d16665a46412\Otter\bin\Debug\csfml-audio-2.dll
+D:\Users\Шурик\Documents\Visual Studio 2012\Projects\ATM\ATM\Otter\kylepulver-otter-d16665a46412\Otter\bin\Debug\csfml-graphics-2.dll
+D:\Users\Шурик\Documents\Visual Studio 2012\Projects\ATM\ATM\Otter\kylepulver-otter-d16665a46412\Otter\bin\Debug\csfml-window-2.dll
+D:\Users\Шурик\Documents\Visual Studio 2012\Projects\ATM\ATM\Otter\kylepulver-otter-d16665a46412\Otter\bin\Debug\Otter.dll
+D:\Users\Шурик\Documents\Visual Studio 2012\Projects\ATM\ATM\Otter\kylepulver-otter-d16665a46412\Otter\bin\Debug\Otter.pdb
+D:\Users\Шурик\Documents\Visual Studio 2012\Projects\ATM\ATM\Otter\kylepulver-otter-d16665a46412\Otter\bin\Debug\sfmlnet-audio-2.dll
+D:\Users\Шурик\Documents\Visual Studio 2012\Projects\ATM\ATM\Otter\kylepulver-otter-d16665a46412\Otter\bin\Debug\sfmlnet-graphics-2.dll
+D:\Users\Шурик\Documents\Visual Studio 2012\Projects\ATM\ATM\Otter\kylepulver-otter-d16665a46412\Otter\bin\Debug\sfmlnet-window-2.dll
+D:\Users\Шурик\Documents\Visual Studio 2012\Projects\ATM\ATM\Otter\kylepulver-otter-d16665a46412\Otter\bin\Debug\sfmlnet-audio-2.xml
+D:\Users\Шурик\Documents\Visual Studio 2012\Projects\ATM\ATM\Otter\kylepulver-otter-d16665a46412\Otter\bin\Debug\sfmlnet-graphics-2.xml
+D:\Users\Шурик\Documents\Visual Studio 2012\Projects\ATM\ATM\Otter\kylepulver-otter-d16665a46412\Otter\bin\Debug\sfmlnet-window-2.xml
+D:\Users\Шурик\Documents\Visual Studio 2012\Projects\ATM\ATM\Otter\kylepulver-otter-d16665a46412\Otter\obj\x86\Debug\Otter.csprojResolveAssemblyReference.cache
+D:\Users\Шурик\Documents\Visual Studio 2012\Projects\ATM\ATM\Otter\kylepulver-otter-d16665a46412\Otter\obj\x86\Debug\Otter.dll
+D:\Users\Шурик\Documents\Visual Studio 2012\Projects\ATM\ATM\Otter\kylepulver-otter-d16665a46412\Otter\obj\x86\Debug\Otter.pdb
