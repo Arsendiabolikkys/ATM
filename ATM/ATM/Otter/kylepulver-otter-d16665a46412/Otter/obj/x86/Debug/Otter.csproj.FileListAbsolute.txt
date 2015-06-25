@@ -1,4 +1,4 @@
-D:\Users\Шурик\Documents\Visual Studio 2012\Projects\ATM\ATM\Otter\kylepulver-otter-d16665a46412\Otter\bin\Debug\libsndfile-1.dll
+﻿D:\Users\Шурик\Documents\Visual Studio 2012\Projects\ATM\ATM\Otter\kylepulver-otter-d16665a46412\Otter\bin\Debug\libsndfile-1.dll
 D:\Users\Шурик\Documents\Visual Studio 2012\Projects\ATM\ATM\Otter\kylepulver-otter-d16665a46412\Otter\bin\Debug\openal32.dll
 D:\Users\Шурик\Documents\Visual Studio 2012\Projects\ATM\ATM\Otter\kylepulver-otter-d16665a46412\Otter\bin\Debug\csfml-audio-2.dll
 D:\Users\Шурик\Documents\Visual Studio 2012\Projects\ATM\ATM\Otter\kylepulver-otter-d16665a46412\Otter\bin\Debug\csfml-graphics-2.dll
@@ -14,7 +14,6 @@ D:\Users\Шурик\Documents\Visual Studio 2012\Projects\ATM\ATM\Otter\kylepulv
 D:\Users\Шурик\Documents\Visual Studio 2012\Projects\ATM\ATM\Otter\kylepulver-otter-d16665a46412\Otter\obj\x86\Debug\Otter.csprojResolveAssemblyReference.cache
 D:\Users\Шурик\Documents\Visual Studio 2012\Projects\ATM\ATM\Otter\kylepulver-otter-d16665a46412\Otter\obj\x86\Debug\Otter.dll
 D:\Users\Шурик\Documents\Visual Studio 2012\Projects\ATM\ATM\Otter\kylepulver-otter-d16665a46412\Otter\obj\x86\Debug\Otter.pdb
-<<<<<<< HEAD
 D:\Документы\ЖДТУ\ооп\Кныш\ATM\ATM\ATM\Otter\kylepulver-otter-d16665a46412\Otter\bin\Debug\libsndfile-1.dll
 D:\Документы\ЖДТУ\ооп\Кныш\ATM\ATM\ATM\Otter\kylepulver-otter-d16665a46412\Otter\bin\Debug\openal32.dll
 D:\Документы\ЖДТУ\ооп\Кныш\ATM\ATM\ATM\Otter\kylepulver-otter-d16665a46412\Otter\bin\Debug\csfml-audio-2.dll
@@ -31,7 +30,6 @@ D:\Документы\ЖДТУ\ооп\Кныш\ATM\ATM\ATM\Otter\kylepulver-otte
 D:\Документы\ЖДТУ\ооп\Кныш\ATM\ATM\ATM\Otter\kylepulver-otter-d16665a46412\Otter\obj\x86\Debug\Otter.csprojResolveAssemblyReference.cache
 D:\Документы\ЖДТУ\ооп\Кныш\ATM\ATM\ATM\Otter\kylepulver-otter-d16665a46412\Otter\obj\x86\Debug\Otter.dll
 D:\Документы\ЖДТУ\ооп\Кныш\ATM\ATM\ATM\Otter\kylepulver-otter-d16665a46412\Otter\obj\x86\Debug\Otter.pdb
-=======
 D:\Users\Шурик\Documents\GitHub\ATM\ATM\ATM\Otter\kylepulver-otter-d16665a46412\Otter\bin\Debug\libsndfile-1.dll
 D:\Users\Шурик\Documents\GitHub\ATM\ATM\ATM\Otter\kylepulver-otter-d16665a46412\Otter\bin\Debug\openal32.dll
 D:\Users\Шурик\Documents\GitHub\ATM\ATM\ATM\Otter\kylepulver-otter-d16665a46412\Otter\bin\Debug\csfml-audio-2.dll
@@ -48,4 +46,3 @@ D:\Users\Шурик\Documents\GitHub\ATM\ATM\ATM\Otter\kylepulver-otter-d16665a4
 D:\Users\Шурик\Documents\GitHub\ATM\ATM\ATM\Otter\kylepulver-otter-d16665a46412\Otter\obj\x86\Debug\Otter.csprojResolveAssemblyReference.cache
 D:\Users\Шурик\Documents\GitHub\ATM\ATM\ATM\Otter\kylepulver-otter-d16665a46412\Otter\obj\x86\Debug\Otter.dll
 D:\Users\Шурик\Documents\GitHub\ATM\ATM\ATM\Otter\kylepulver-otter-d16665a46412\Otter\obj\x86\Debug\Otter.pdb
->>>>>>> origin/master
