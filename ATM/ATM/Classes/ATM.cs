@@ -44,18 +44,14 @@ namespace ATM.Classes
             }
         }
 
-        public void RunATM()
+        public void RunATM(string cardNumber, string password)
         {
-            Console.WriteLine("card number - ");
-            string cardNumber = Console.ReadLine();
             if (CardExist(cardNumber))
             {
-                Console.WriteLine("password - ");
-                string password = Console.ReadLine();
                 if (IsValidPassword(cardNumber, password))
                 {
                     CurrentCard = AvailableCards.Find(x => x.CardNumber.Equals(cardNumber));
-                    Menu();
+                    //Menu();
                 }
                 else 
                 {
@@ -66,11 +62,6 @@ namespace ATM.Classes
             {
                 Console.WriteLine("card is not exist");
             }
-        }
-
-        private void Menu()
-        {
-
         }
 
         private double CurrentCardAvailableMoney()
