@@ -20,6 +20,11 @@ namespace ATM.Classes
             AmountOfMoney = amountOfMoney;
         }
 
+        public double ShowAvailableMoney()
+        {
+            return AmountOfMoney;
+        }
+
         public void SaveCard()
         {
             string path = @"data\Cards.txt";

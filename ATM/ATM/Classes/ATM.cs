@@ -73,6 +73,11 @@ namespace ATM.Classes
 
         }
 
+        private double CurrentCardAvailableMoney()
+        {
+            return CurrentCard.ShowAvailableMoney();
+        }
+
         private void SaveATM()
         {
             CurrentCard.SaveCard();
