@@ -122,7 +122,7 @@ namespace ATM.UserInterface
             // When this object first gets focus set the Input.KeyString to the current string of the text.
             Input.KeyString = InputString;
             // Also make the outline color fancy yay.
-            ImageBox.OutlineColor = Color.Yellow;
+            ImageBox.OutlineColor = Color.Green;
         }
 
         public void Unfocus()

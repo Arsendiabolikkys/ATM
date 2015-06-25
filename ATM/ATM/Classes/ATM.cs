@@ -107,7 +107,7 @@ namespace ATM.Classes
 
         public bool TakeMoney(int sum)
         {
-            if (!(sum >= MinAvailableMoney && sum <= MaxAvailableMoney && sum % MinAvailableMoney == 0)) return false;
+            if (!(sum >= MinAvailableMoney && sum <= MaxAvailableMoney && sum % 10 == 0)) return false;
             int count = 0;
             int[] counts = new int[RatingsCount];
             bool enable = false;

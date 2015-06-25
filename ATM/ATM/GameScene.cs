@@ -18,32 +18,32 @@ namespace ATM
             Add(new Background(Assets.Background));
             Add(new Cursor());
 
-            Add(new ATM.UserInterface.Button(Assets.Button, 300 - 10, 200,Assets.Button, delegate()
+            Add(new ATM.UserInterface.Button(Assets.Button, 300+10, 200,Assets.Button, delegate()
                 {
                     GameScene.Instance.RemoveAll();
                     ShowCash();
                 }));
 
-            Add(new Label(310, 200, "Посмотреть баланс", Color.White, 16));
+            Add(new Label(330, 210, "Посмотреть баланс", Color.White, 16));
 
-            Add(new ATM.UserInterface.Button(Assets.Button, 300 - 10, 300, Assets.Button, delegate()
+            Add(new ATM.UserInterface.Button(Assets.Button, 300+10, 300, Assets.Button, delegate()
             {
                     GameScene.Instance.RemoveAll();
                     GetCash();
             }));
 
-            Add(new Label(325, 300, "Снять наличные", Color.White, 16));
+            Add(new Label(355, 310, "Снять наличные", Color.White, 16));
 
 
-            Add(new ATM.UserInterface.Button(Assets.Button, 300 - 10, 400, Assets.Button, delegate()
+            Add(new ATM.UserInterface.Button(Assets.Button, 300+10, 400, Assets.Button, delegate()
             {
                 Global.atm.SaveATM();
                 Environment.Exit(0);
             }));
 
-            Add(new Label(350, 400, "Выход", Color.White, 16));
+            Add(new Label(380, 410, "Выход", Color.White, 16));
 
-            Add(new Label(Game.Instance.HalfHeight, 20, "БАНКОМАТ", Color.White, 40));
+            Add(new Label(350, 20, "Банкомат", Color.White, 30));
         }
 
         public void ShowCash()
@@ -57,7 +57,8 @@ namespace ATM
                     GameScene.Instance.RemoveAll();
                     ShowMainMenu();
                 }));
-            Add(new Label(Game.HalfHeight+80, Game.HalfHeight + 110, "Назад", Color.Black));
+            Add(new Label(Game.HalfHeight+80, Game.HalfHeight + 110, "Назад", Color.White));
+            Add(new Label(310, 20, "Личный баланс", Color.White, 30));
         }
 
         public void GetCash()
@@ -66,7 +67,7 @@ namespace ATM
             Add(new Cursor());
             var sum = new TextEditBox(250, 200);
             Add(new Label(320, 20, "Снять деньги", Color.White, 30));
-            Add(new Label(250, 180, "Номер карты", Color.Black));
+            Add(new Label(250, 180, "Введи сумму", Color.Black));
             Add(new ATM.UserInterface.Button(Assets.Button, 330, 400, Assets.Button, delegate()
             {
                 if (Global.atm.TakeMoney(Convert.ToInt32(sum.InputString)))
@@ -81,6 +82,7 @@ namespace ATM
                 }
             })); 
             Add(sum);
+            Add(new Label(380, 410, "Снять деньги", Color.White));
         }
 
         public void ShowResult(string sum)
@@ -89,6 +91,12 @@ namespace ATM
             Add(new Cursor());
             Add(new Label(340, 20, "Успех", Color.White, 30));
             Add(new Label(250, 180, "Деньги в размере " + sum + " были успешно сняты", Color.Black));
+            Add(new ATM.UserInterface.Button(Assets.Button, Game.HalfWidth - 100, Game.HalfHeight + 100, Assets.Button, delegate()
+            {
+                GameScene.Instance.RemoveAll();
+                ShowMainMenu();
+            }));
+            Add(new Label(Game.HalfHeight + 80, Game.HalfHeight + 110, "Назад", Color.White));
         }
 
         public void Error()
@@ -96,7 +104,13 @@ namespace ATM
             Add(new Background(Assets.Background));
             Add(new Cursor());
             Add(new Label(340, 20, "Ошибка", Color.White, 30));
-            Add(new Label(250, 180, "На вашем счету не хватает средств", Color.Black));
+            Add(new Label(250, 180, "Данную самму снять невозможно", Color.Black));
+            Add(new ATM.UserInterface.Button(Assets.Button, Game.HalfWidth - 100, Game.HalfHeight + 100, Assets.Button, delegate()
+            {
+                GameScene.Instance.RemoveAll();
+                ShowMainMenu();
+            }));
+            Add(new Label(Game.HalfHeight + 80, Game.HalfHeight + 110, "Назад", Color.White));
         }
 
         public void ShowAuthorizeForm()
@@ -125,7 +139,7 @@ namespace ATM
                         Add(new Label(280, 350, "Невалидные данные.Попробуйте ещё раз.", Color.Red));
                     }
                 }));
-            Add(new Label(380, 400, "Подтвердить", Color.White));
+            Add(new Label(380, 410, "Подтвердить", Color.White));
         }
 
         public GameScene()
