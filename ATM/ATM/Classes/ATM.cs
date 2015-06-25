@@ -51,22 +51,23 @@ namespace ATM.Classes
             }
         }
 
-        public void RunATM(string cardNumber, string password)
+        public bool RunATM(string cardNumber, string password)
         {
             if (CardExist(cardNumber))
             {
                 if (IsValidPassword(cardNumber, password))
                 {
                     CurrentCard = AvailableCards.Find(x => x.CardNumber.Equals(cardNumber));
+                    return true;
                 }
                 else 
                 {
-                    //Console.WriteLine("wrong pass");
+                    return false;
                 }
             }
             else 
             {
-                //Console.WriteLine("card is not exist");
+                return false;
             }
         }
 
@@ -108,7 +109,7 @@ namespace ATM.Classes
             }
         }
 
-        public void TakeMoney(int sum)
+        public bool TakeMoney(int sum)
         {
             int count = 0;
             int[] counts = new int[RatingsCount];
@@ -142,11 +143,8 @@ namespace ATM.Classes
                         }
                     }
                 }
-            }                         
-            if (!enable)
-            {
-                //не валидная сумма
             }
+            return enable;
         }
 
         private bool CardExist(string cardNumber)

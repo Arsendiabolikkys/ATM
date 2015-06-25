@@ -12,7 +12,7 @@ namespace ATM
         
         static void Main(string[] args)
         {
-            Game game = new Game("Game", 800, 600); //creates a game with internal resolution 1920 x 1080
+            Game game = new Game("ATM", 800, 600); //creates a game with internal resolution 1920 x 1080
             Global.User = game.AddSession("User");
 
 
