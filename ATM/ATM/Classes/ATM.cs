@@ -14,8 +14,8 @@ namespace ATM.Classes
         private List<Cash> Money;
         private List<Card> AvailableCards;
         private Card CurrentCard;
-        private int MinAvailableMoney;
-        private int MaxAvailableMoney;
+        private int MinAvailableMoney = 0;
+        private int MaxAvailableMoney = 0;
 
         public ATM()
         {
@@ -101,16 +101,13 @@ namespace ATM.Classes
             }
             for (int i = RatingsCount - 1; i > 0; --i)
             {
-                if (Money[i].Count > 0)
-                {
-                    MaxAvailableMoney = Money[i].Rating;
-                    break;
-                }
+                MaxAvailableMoney += Money[i].Count * Money[i].Rating;
             }
         }
 
         public bool TakeMoney(int sum)
         {
+            if (!(sum >= MinAvailableMoney && sum <= MaxAvailableMoney && sum % MinAvailableMoney == 0)) return false;
             int count = 0;
             int[] counts = new int[RatingsCount];
             bool enable = false;
