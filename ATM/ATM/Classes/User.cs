@@ -12,11 +12,11 @@ namespace ATM.Classes
         public string Password { get; private set; }
         public double AmountOfMoney { get; private set; }
 
-        public User(string cardNumber = null, string password = null, double amountOfMonet = 0)
+        public User(string cardNumber = null, string password = null, double amountOfMoney = 0)
         {
             CardNumber = cardNumber;
             Password = password;
-            AmountOfMoney = amountOfMonet;
+            AmountOfMoney = amountOfMoney;
         }
     }
 }
