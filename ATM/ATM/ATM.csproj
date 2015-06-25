@@ -41,6 +41,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\ATM.cs" />
+    <Compile Include="Classes\Cash.cs" />
+    <Compile Include="Classes\User.cs" />
+    <Compile Include="GameScene.cs" />
+    <Compile Include="Global.cs" />
+    <Compile Include="UserInterface\Background.cs" />
+    <Compile Include="UserInterface\Cursor.cs" />
+    <Compile Include="UserInterface\Label.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
