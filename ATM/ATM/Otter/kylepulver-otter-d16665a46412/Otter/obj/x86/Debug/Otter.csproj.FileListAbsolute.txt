@@ -1,4 +1,4 @@
-﻿D:\Users\Шурик\Documents\Visual Studio 2012\Projects\ATM\ATM\Otter\kylepulver-otter-d16665a46412\Otter\bin\Debug\libsndfile-1.dll
+D:\Users\Шурик\Documents\Visual Studio 2012\Projects\ATM\ATM\Otter\kylepulver-otter-d16665a46412\Otter\bin\Debug\libsndfile-1.dll
 D:\Users\Шурик\Documents\Visual Studio 2012\Projects\ATM\ATM\Otter\kylepulver-otter-d16665a46412\Otter\bin\Debug\openal32.dll
 D:\Users\Шурик\Documents\Visual Studio 2012\Projects\ATM\ATM\Otter\kylepulver-otter-d16665a46412\Otter\bin\Debug\csfml-audio-2.dll
 D:\Users\Шурик\Documents\Visual Studio 2012\Projects\ATM\ATM\Otter\kylepulver-otter-d16665a46412\Otter\bin\Debug\csfml-graphics-2.dll
