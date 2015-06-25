@@ -43,7 +43,7 @@
   <ItemGroup>
     <Compile Include="Classes\ATM.cs" />
     <Compile Include="Classes\Cash.cs" />
-    <Compile Include="Classes\User.cs" />
+    <Compile Include="Classes\Card.cs" />
     <Compile Include="GameScene.cs" />
     <Compile Include="Global.cs" />
     <Compile Include="UserInterface\Background.cs" />

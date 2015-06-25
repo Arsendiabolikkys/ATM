@@ -23,6 +23,7 @@ namespace ATM
             //Game settings
             game.SetWindow(800, 600); //outputs the game to a window scaled down to 1600 x 900
             game.FirstScene = new GameScene();
+            Classes.ATM atm = new Classes.ATM();
             game.Start(); //starts the game loop
         }
     }
