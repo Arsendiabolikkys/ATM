@@ -11,7 +11,7 @@ namespace ATM.Classes
     {
         public string CardNumber { get; private set; }
         public string Password { get; private set; }
-        public double AmountOfMoney { get; private set; }
+        public double AmountOfMoney { get; set; }
 
         public Card(string cardNumber = null, string password = null, double amountOfMoney = 0)
         {

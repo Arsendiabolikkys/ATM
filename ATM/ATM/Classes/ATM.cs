@@ -107,7 +107,8 @@ namespace ATM.Classes
 
         public bool TakeMoney(int sum)
         {
-            if (!(sum >= MinAvailableMoney && sum <= MaxAvailableMoney && sum % 10 == 0)) return false;
+
+            if (!(sum >= MinAvailableMoney && sum <= MaxAvailableMoney && sum % 10 == 0 && sum <= CurrentCard.AmountOfMoney)) return false;
             int count = 0;
             int[] counts = new int[RatingsCount];
             bool enable = false;
@@ -130,9 +131,11 @@ namespace ATM.Classes
                                     {
                                         for (int k = 0; k < RatingsCount; ++k)
                                         {
+                                            CurrentCard.AmountOfMoney -= Money[k].Rating * counts[k];
                                             Money[k].Count -= counts[k];
                                         }                                        
                                         sum = 0;
+                                        SetMinMax();
                                         enable = true;
                                     }
                                 }

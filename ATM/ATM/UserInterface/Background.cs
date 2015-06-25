@@ -10,12 +10,12 @@ namespace ATM.UserInterface
 {
     class Background : Entity
     {
-        private Image BackgroundImage;
+        private Image BackgroundImage; // Тут хранится изображение
 
         public Background(string path)
         {
-            BackgroundImage = new Image(path);
-            SetGraphic(BackgroundImage);
+            BackgroundImage = new Image(path);//Устанавливаем его по пути
+            SetGraphic(BackgroundImage);//сетапим как графику
         }
     }
 }

@@ -9,7 +9,8 @@ using System.IO;
 
 namespace ATM
 {
-    public static class Assets
+    public static class Assets // это строки к картинкам
+
     {
         public static string Cursor = @"../../UserInterface/Resources/cursor.png";
         public static string Label;
@@ -17,13 +18,13 @@ namespace ATM
         public static string Button = @"../../UserInterface/Resources/button.png";
     }
 
-    public class Global
+    public class Global //тут статик объект основного бизнесс класса и объект сесси для юзера
     {
         public static Classes.ATM atm = new Classes.ATM();
         public static Session User;
     }
 
-    public enum Controls
+    public enum Controls // перечисление для кнопок
     {
         Left,
         Right
