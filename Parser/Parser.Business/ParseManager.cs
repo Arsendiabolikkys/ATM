@@ -60,13 +60,13 @@ namespace Parser.Business
         private UniversityData currentUniversity;
 
         public ParseManager()
-        {            
+        {
             universities = new List<UniversityData>();
             currentUniversity = null;
         }
 
         public void StartParse()
-        {            
+        {
             for (var id = startPageId; id <= endPageId; id++)
             {
                 ParseUniverPage(refer + id);
@@ -101,14 +101,14 @@ namespace Parser.Business
                 }
             }
             catch (Exception ex)
-            { 
-            }            
+            {
+            }
         }
 
         private void ParseSpecialityDetails(string pageRefer)
         {
             try
-            {                
+            {       
                 string source;
 
                 HttpWebRequest req = (HttpWebRequest)HttpWebRequest.Create(pageRefer);
@@ -134,7 +134,7 @@ namespace Parser.Business
                 Match specName = univerRegex.Match(source);
                 //к новому или уже существующему факультету добавить специальность
 
-            }            
+            }     
             catch(Exception ex)
             {
             }
