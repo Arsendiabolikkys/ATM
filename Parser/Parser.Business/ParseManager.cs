@@ -59,13 +59,10 @@ namespace Parser.Business
 
         private UniversityData currentUniversity;
 
-        private string regionName;
-
         public ParseManager()
         {            
             universities = new List<UniversityData>();
             currentUniversity = null;
-            regionName = "";
         }
 
         public void StartParse()
