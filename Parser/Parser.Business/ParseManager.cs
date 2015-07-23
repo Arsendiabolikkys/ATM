@@ -102,7 +102,7 @@ namespace Parser.Business
 
         private const string mainRefer = "http://abit-poisk.org.ua/score/direction/";
 
-        private const string fileName = "Universities2.dll";
+        private const string fileName = "Universities.dll";
 
         private const string bachelorPattern = @"<tr>(?:[\s\w\/\\]*?)?<td(?:[а-яА-ЯіїєІЇЄ=\s\w""\\-]*?)?>(?:[\s\w.\/\\]*?)?(?:Бакалавр|Спеціаліст на основі повної загальної середньої освіти )(?:[\s\w.\/\\]*?)?</td>(?:[:;""',.а-яА-ЯіїєІЇЄ=?()\s\w\/\\<>-]*?)</tr>";
 
@@ -133,6 +133,8 @@ namespace Parser.Business
         Dictionary<int, string> savedSpecialities = new Dictionary<int, string>();
 
         Dictionary<int, string> savedFaculties = new Dictionary<int, string>();
+
+        Dictionary<int, string> savedCities = new Dictionary<int, string>();
 
         public ParseManager()
         {
@@ -282,9 +284,6 @@ namespace Parser.Business
             if (FileExist())
             {
                 ReadFromBinary();
-                XDocument facultDocument = new XDocument();
-                XDocument specDocument = new XDocument();
-                XDocument regionDocument = new XDocument();
 
                 SaveRegions();
 
@@ -295,7 +294,33 @@ namespace Parser.Business
                 SaveSpecialities();
 
                 SaveFacultSpec();
+
+                SaveCities();
             }
+        }
+
+        private void SaveCities()
+        {
+            int cityId = 0;
+            XDocument cityDocument = new XDocument();
+            var cities = new XElement("cities");
+
+            cityDocument.Add(cities);
+
+            foreach (var univer in this.universities)
+            {
+                if (!String.IsNullOrEmpty(univer.RegionName) && !savedCities.ContainsValue(univer.CityName))
+                {
+                    savedCities.Add(cityId, univer.CityName);
+
+                    cities.Add(new XElement("city",
+                        new XElement("id", cityId++),
+                        new XElement("name", univer.CityName),
+                        new XElement("regionId", GetRegionIdByCityName(univer.CityName))));
+                }
+            }
+
+            cityDocument.Save("cities.xml");
         }
 
         private void SaveRegions()
@@ -338,7 +363,7 @@ namespace Parser.Business
                 universities.Add(new XElement("university",
                     new XElement("id", univerId++),
                     new XElement("name", univer.UniversityName),
-                    new XElement("cityId", GetRegionIdByName(univer.RegionName))));
+                    new XElement("cityId", GetCityIdByName(univer.CityName))));
             }
 
             univerDocument.Save("universities.xml");
@@ -423,7 +448,7 @@ namespace Parser.Business
                         if(facult.Specialities.Contains(spec.Value))
                         {
                             facultSpec.Add(new XElement("pair",
-                                new XElement("facultId", GetFacultItByName(facult.FacultyName)),
+                                new XElement("facultId", GetFacultIdByName(facult.FacultyName)),
                                 new XElement("specId", spec.Key)));
                         }
                     }
@@ -438,14 +463,31 @@ namespace Parser.Business
             return savedRegs.FirstOrDefault(reg => reg.Value == name).Key;
         }
 
+        private int GetRegionIdByCityName(string name)
+        {
+            foreach(var reg in savedRegs)
+            {
+                if(reg.Value.Contains(name))
+                {
+                    return reg.Key;
+                }
+            }
+            return savedCities.FirstOrDefault(city => city.Value == name).Key;
+        }
+
         private int GetUniversityIdByName(string name)
         {
             return savedUniversities.FirstOrDefault(reg => reg.Value == name).Key;
         }
 
-        private int GetFacultItByName(string name)
+        private int GetFacultIdByName(string name)
         {
             return savedFaculties.FirstOrDefault(reg => reg.Value == name).Key;
+        }
+
+        private int GetCityIdByName(string name)
+        {
+            return savedCities.FirstOrDefault(reg => reg.Value == name).Key;
         }
 
         private void SaveToBinary()
@@ -458,7 +500,6 @@ namespace Parser.Business
                 bformatter.Serialize(stream, universities);
             }
         }
-
 
         private bool FileExist()
         {
