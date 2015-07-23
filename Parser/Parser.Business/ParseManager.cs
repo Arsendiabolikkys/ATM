@@ -268,6 +268,8 @@ namespace Parser.Business
 
                 SaveRegions();
 
+                SaveCities();
+
                 SaveUniversities();
 
                 SaveFaculties();
@@ -275,8 +277,6 @@ namespace Parser.Business
                 SaveSpecialities();
 
                 SaveFacultSpec();
-
-                SaveCities();
             }
         }
 
