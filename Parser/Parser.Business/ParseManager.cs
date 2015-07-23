@@ -45,6 +45,8 @@ namespace Parser.Business
 
         public string RegionName;
 
+        public string CityName;
+
         public List<FacultyData> Faculties;
 
         public UniversityData()
@@ -61,6 +63,37 @@ namespace Parser.Business
         {
             Faculties.Find(faculty => faculty.FacultyName == facultyName).AddSpeciality(specName);
         }
+
+        public void FillCity(string regionName)
+        {
+            if (regionName.Contains("Київська")) CityName = "Біла Церква";
+            else if (regionName.Contains("Київ")) CityName = "Київ";
+            else if (regionName.Contains("Севастополь")) CityName = "Севастополь";
+            else if (regionName.Contains("АР Крим")) CityName = "Сімферополь";
+            else if (regionName.Contains("Вінницька")) CityName = "Вінниця";
+            else if (regionName.Contains("Волинська")) CityName = "Луцьк";
+            else if (regionName.Contains("Дніпропетровська")) CityName = "Дніпропетровськ";
+            else if (regionName.Contains("Донецька")) CityName = "Донецьк";
+            else if (regionName.Contains("Житомирська")) CityName = "Житомир";
+            else if (regionName.Contains("Закарпатська")) CityName = "Ужгород";
+            else if (regionName.Contains("Запорізька")) CityName = "Запоріжжя";
+            else if (regionName.Contains("Івано-Франківська")) CityName = "Івано-Франківськ";
+            else if (regionName.Contains("Кіровоградська")) CityName = "Кіровоград";
+            else if (regionName.Contains("Луганська")) CityName = "Луганськ";
+            else if (regionName.Contains("Львівська")) CityName = "Львів";
+            else if (regionName.Contains("Миколаївська")) CityName = "Миколаїв";
+            else if (regionName.Contains("Одеська")) CityName = "Одеса";
+            else if (regionName.Contains("Полтавська")) CityName = "Полтава";
+            else if (regionName.Contains("Рівненська")) CityName = "Рівне";
+            else if (regionName.Contains("Сумська")) CityName = "Суми";
+            else if (regionName.Contains("Тернопільська")) CityName = "Тернопіль";
+            else if (regionName.Contains("Харківська")) CityName = "Харків";
+            else if (regionName.Contains("Херсонська")) CityName = "Херсон";
+            else if (regionName.Contains("Хмельницька")) CityName = "Хмельницкий";
+            else if (regionName.Contains("Черкаська")) CityName = "Черкаси";
+            else if (regionName.Contains("Чернівецька")) CityName = "Чернівці";
+            else if (regionName.Contains("Чернігівська")) CityName = "Чернігів";
+        }
     }
 
     public class ParseManager
@@ -68,6 +101,8 @@ namespace Parser.Business
         private const string refer = "http://abit-poisk.org.ua/rate2014/univer/";
 
         private const string mainRefer = "http://abit-poisk.org.ua/score/direction/";
+
+        private const string fileName = "Universities2.dll";
 
         private const string bachelorPattern = @"<tr>(?:[\s\w\/\\]*?)?<td(?:[а-яА-ЯіїєІЇЄ=\s\w""\\-]*?)?>(?:[\s\w.\/\\]*?)?(?:Бакалавр|Спеціаліст на основі повної загальної середньої освіти )(?:[\s\w.\/\\]*?)?</td>(?:[:;""',.а-яА-ЯіїєІЇЄ=?()\s\w\/\\<>-]*?)</tr>";
 
@@ -78,6 +113,8 @@ namespace Parser.Business
         private const string facultyPattern = @"<dt>Факультет:</dt>(?:[\s\w\/\\<]*?)>([-\w\sа-яА-ЯіІєЄїЇ\\\/""',.()]*)?";
 
         private const string specialityPattern = @"<dt>(?:Напрям:|Спеціальність:)</dt>(?:[\s\w\/\\<]*?)>([-\w\sа-яА-ЯіІєЄїЇ\\\/""',.()]*)?";
+
+        private const string regionPattern = @"<a href=""/rate2014/region/(?:[\d]*)"">([-.\w\sа-яА-ЯіІїЇєЄ']*)";
         
         private const int startPageId = 1;
 
@@ -122,10 +159,6 @@ namespace Parser.Business
                         universities.Add(currentUniversity);
                         currentUniversity = null;
                     }
-                    //else if (currentUniversity.UniversityName == null && IsUniversity)
-                    //{
-                    //    id--;
-                    //}
                     if (id % 5 == 0)
                     {
                         Console.WriteLine("id%10==0");
@@ -137,11 +170,6 @@ namespace Parser.Business
                 }
                 catch (Exception ex)
                 {
-                    //WebOperationContext ctx = WebOperationContext.Current;
-                    //if (ctx.OutgoingResponse.StatusCode == System.Net.HttpStatusCode.InternalServerError)
-                    //{
-                    //    SaveToBinary();
-                    //}
                 }
             }
             //SaveToXml();
@@ -173,17 +201,21 @@ namespace Parser.Business
                 text = stream.ReadToEnd();
             }
 
+            Regex regionRegex = new Regex(regionPattern);
+            Match regionMatch = regionRegex.Match(text);
+            string regionName = regionMatch.Groups[1].Value.ToString();
+
             Regex reg = new Regex(bachelorPattern);
             foreach (Match match in reg.Matches(text))
             {
                 string tmp = match.Groups[0].Value.ToString();
                 Regex innerReg = new Regex(linkPattern);
                 Match found = innerReg.Match(tmp);
-                ParseSpecialityDetails(mainRefer + found.Groups[1].Value.ToString());
+                ParseSpecialityDetails(mainRefer + found.Groups[1].Value.ToString(), regionName);
             }
         }
 
-        private void ParseSpecialityDetails(string pageRefer)
+        private void ParseSpecialityDetails(string pageRefer, string regionName)
         {
             try
             {       
@@ -209,7 +241,8 @@ namespace Parser.Business
                 if (String.IsNullOrEmpty(currentUniversity.UniversityName))
                 {
                     currentUniversity.UniversityName = universityName;
-                    currentUniversity.RegionName = TakeRegion(universityName);
+                    currentUniversity.RegionName = regionName;
+                    currentUniversity.FillCity(regionName);
                 }
 
                 Regex facultyRegex = new Regex(facultyPattern);
@@ -242,40 +275,6 @@ namespace Parser.Business
         {
             string tmp = universityName.ToLower();
             return tmp.Contains("коледж") || universityName.Contains("технікум");
-        }
-
-        private string TakeRegion(string universityName)
-        {
-            string region = "";
-
-            if (universityName.Contains("Київський")) region = "Київ";
-            else if (universityName.Contains("Севастополь")) region = "Севастополь";
-            else if (universityName.Contains("АР Крим")) region = "АР Крим";
-            else if (universityName.Contains("Вінницький")) region = "Вінницька область";
-            else if (universityName.Contains("Луцький")) region = "Волинська область";
-            else if (universityName.Contains("Дніпропетровський")) region = "Дніпропетровська область";
-            else if (universityName.Contains("Донецький")) region = "Донецька область";
-            else if (universityName.Contains("Житомирський")) region = "Житомирська область";
-            else if (universityName.Contains("Ужгородський")) region = "Закарпатська область";
-            else if (universityName.Contains("Запорізький")) region = "Запорізька область";
-            else if (universityName.Contains("Івано-Франківський")) region = "Івано-Франківська область";
-            else if (universityName.Contains("Кіровоградський")) region = "Кіровоградська область";
-            else if (universityName.Contains("Луганський")) region = "Луганська область";
-            else if (universityName.Contains("Львівський")) region = "Львівська область";
-            else if (universityName.Contains("Миколаївський")) region = "Миколаївська область";
-            else if (universityName.Contains("Одеський")) region = "Одеська область";
-            else if (universityName.Contains("Полтавський")) region = "Полтавська область";
-            else if (universityName.Contains("Рівненський")) region = "Рівненська область";
-            else if (universityName.Contains("Сумський")) region = "Сумська область";
-            else if (universityName.Contains("Тернопільський")) region = "Тернопільска область";
-            else if (universityName.Contains("Харківський")) region = "Харківська область";
-            else if (universityName.Contains("Херсонський")) region = "Херсонська область";
-            else if (universityName.Contains("Хмельницький")) region = "Хмельницка область";
-            else if (universityName.Contains("Черкаський")) region = "Черкаська область";
-            else if (universityName.Contains("Чернівецький")) region = "Чернівецька область";
-            else if (universityName.Contains("Чернігівський")) region = "Чернігівська область";
-
-            return region;
         }
 
         public void SaveToXml()
@@ -449,7 +448,7 @@ namespace Parser.Business
 
         private void SaveToBinary()
         {
-            using (Stream stream = File.Open("Universities.dll", FileMode.Create))
+            using (Stream stream = File.Open(fileName, FileMode.Create))
             {
                 var bformatter = new BinaryFormatter();
 
@@ -463,7 +462,7 @@ namespace Parser.Business
         {
             try
             {
-                using (Stream stream = File.Open("Universities.dll", FileMode.Open))
+                using (Stream stream = File.Open(fileName, FileMode.Open))
                 {                    
                 }
                 return true;
@@ -476,7 +475,7 @@ namespace Parser.Business
 
         private void ReadFromBinary()
         {
-            using (Stream stream = File.Open("Universities.dll", FileMode.Open))
+            using (Stream stream = File.Open(fileName, FileMode.Open))
             {
                 var bformatter = new BinaryFormatter();
 
