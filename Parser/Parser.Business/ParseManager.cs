@@ -3,12 +3,16 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.ServiceModel;
+using System.ServiceModel.Web;
 
 namespace Parser.Business
 {
+    [Serializable]
     public class FacultyData
     {
         public string FacultyName;
@@ -32,6 +36,7 @@ namespace Parser.Business
         }
     }
 
+    [Serializable]
     public class UniversityData
     {
         public string UniversityName;
@@ -62,15 +67,15 @@ namespace Parser.Business
 
         private const string mainRefer = "http://abit-poisk.org.ua/score/direction/";
 
-        private const string bachelorPattern = @"<tr>(?:[\s\w\/\\]*?)?<td(?:[а-яА-ЯіїєІЇЄ=\s\w""\\-]*?)?>(?:[\s\w.\/\\]*?)?Бакалавр(?:[\s\w.\/\\]*?)?</td>(?:[:;""',.а-яА-ЯіїєІЇЄ=?()\s\w\/\\<>-]*?)</tr>";
+        private const string bachelorPattern = @"<tr>(?:[\s\w\/\\]*?)?<td(?:[а-яА-ЯіїєІЇЄ=\s\w""\\-]*?)?>(?:[\s\w.\/\\]*?)?(?:Бакалавр|Спеціаліст на основі повної загальної середньої освіти )(?:[\s\w.\/\\]*?)?</td>(?:[:;""',.а-яА-ЯіїєІЇЄ=?()\s\w\/\\<>-]*?)</tr>";
 
         private const string linkPattern = @"href=(?:[\w\\])?""/score/direction/([\d]*)";
 
-        private const string universityPattern = @"<dt>ВНЗ:</dt>(?:[\s\w\/\\<]*?)><a(?:[\s\w=""\\\/]*)>([-\w\sа-яА-ЯіІєЄїЇ\\\/""']*)?</a>";
+        private const string universityPattern = @"<dt>ВНЗ:</dt>(?:[\s\w\/\\<]*?)><a(?:[\s\w=""\\\/]*)>([-\w\sа-яА-ЯіІєЄїЇ\\\/""',.()]*)?</a>";
 
-        private const string facultyPattern = @"<dt>Факультет:</dt>(?:[\s\w\/\\<]*?)>([-\w\sа-яА-ЯіІєЄїЇ\\\/""']*)?";
+        private const string facultyPattern = @"<dt>Факультет:</dt>(?:[\s\w\/\\<]*?)>([-\w\sа-яА-ЯіІєЄїЇ\\\/""',.()]*)?";
 
-        private const string specialityPattern = @"<dt>Напрям:</dt>(?:[\s\w\/\\<]*?)>([-\w\sа-яА-ЯіІєЄїЇ\\\/""']*)?";
+        private const string specialityPattern = @"<dt>(?:Напрям:|Спеціальність:)</dt>(?:[\s\w\/\\<]*?)>([-\w\sа-яА-ЯіІєЄїЇ\\\/""',.()]*)?";
         
         private const int startPageId = 1;
 
@@ -80,50 +85,91 @@ namespace Parser.Business
 
         private UniversityData currentUniversity;
 
+        private bool IsUniversity;
+
         public ParseManager()
         {
+            IsUniversity = true;
             universities = new List<UniversityData>();
             currentUniversity = null;
         }
 
         public void StartParse()
         {
-            for (var id = startPageId; id <= endPageId; id++)
+            if (FileExist())
             {
-                ParseUniverPage(refer + id);
-                universities.Add(currentUniversity);
-                currentUniversity = null;
-                Console.WriteLine("Ссылка: " + refer + id);
+                ReadFromBinary();
             }
-            SaveToXml();
+            
+            for (var id = universities.Count == 0 ? startPageId : universities.Count + 1; id <= endPageId; id++)
+            {
+                try 
+                {
+                    ParseUniverPage(refer + id);
+                    
+                    if (currentUniversity.UniversityName != null && IsUniversity)
+                    {
+                        universities.Add(currentUniversity);
+                        currentUniversity = null;
+                    }
+                    //else if (currentUniversity.UniversityName == null && IsUniversity)
+                    //{
+                    //    id--;
+                    //}
+                    if (id % 5 == 0)
+                    {
+                        Console.WriteLine("id%10==0");
+                        SaveToBinary();
+                    }
+                    Console.WriteLine("Ссылка: " + refer + id);
+                    if (!IsUniversity)
+                        IsUniversity = true;
+                }
+                catch (Exception ex)
+                {
+                    //WebOperationContext ctx = WebOperationContext.Current;
+                    //if (ctx.OutgoingResponse.StatusCode == System.Net.HttpStatusCode.InternalServerError)
+                    //{
+                    //    SaveToBinary();
+                    //}
+                }
+            }
+            //SaveToXml();
+            //SaveToBinary();
         }
 
         private void ParseUniverPage(string pageRefer)
         {
+            currentUniversity = new UniversityData();
+            string text;
+            HttpWebRequest req = null;
+            HttpWebResponse resp = null;
+
             try
             {
-                currentUniversity = new UniversityData();
-                string text;
-
-                HttpWebRequest req = (HttpWebRequest)HttpWebRequest.Create(pageRefer);
-                HttpWebResponse resp = (HttpWebResponse)req.GetResponse();
-
-                using (StreamReader stream = new StreamReader(resp.GetResponseStream(), Encoding.UTF8))
-                {
-                    text = stream.ReadToEnd();
-                }
-
-                Regex reg = new Regex(bachelorPattern);
-                foreach (Match match in reg.Matches(text))
-                {
-                    string tmp = match.Groups[0].Value.ToString();
-                    Regex innerReg = new Regex(linkPattern);
-                    Match found = innerReg.Match(tmp);
-                    ParseSpecialityDetails(mainRefer + found.Groups[1].Value.ToString());
-                }
+                req = (HttpWebRequest)HttpWebRequest.Create(pageRefer);
+                resp = (HttpWebResponse)req.GetResponse();
             }
             catch
             {
+                while (resp == null)
+                {
+                    resp = (HttpWebResponse)req.GetResponse();
+                }
+            }            
+
+            using (StreamReader stream = new StreamReader(resp.GetResponseStream(), Encoding.UTF8))
+            {
+                text = stream.ReadToEnd();
+            }
+
+            Regex reg = new Regex(bachelorPattern);
+            foreach (Match match in reg.Matches(text))
+            {
+                string tmp = match.Groups[0].Value.ToString();
+                Regex innerReg = new Regex(linkPattern);
+                Match found = innerReg.Match(tmp);
+                ParseSpecialityDetails(mainRefer + found.Groups[1].Value.ToString());
             }
         }
 
@@ -154,7 +200,7 @@ namespace Parser.Business
                 {
                     currentUniversity.UniversityName = universityName;
                     currentUniversity.RegionName = TakeRegion(universityName);
-                }                
+                }
 
                 Regex facultyRegex = new Regex(facultyPattern);
                 Match facultyMatch = facultyRegex.Match(source);
@@ -173,7 +219,7 @@ namespace Parser.Business
             catch(Exception ex)
             {
                 Console.WriteLine(ex.Message);
-                currentUniversity = null;
+                IsUniversity = false;
             }
         }
 
@@ -184,7 +230,8 @@ namespace Parser.Business
 
         private bool IsCollege(string universityName)
         {
-            return universityName.Contains("коледж") || universityName.Contains("Коледж");
+            string tmp = universityName.ToLower();
+            return tmp.Contains("коледж") || universityName.Contains("технікум");
         }
 
         private string TakeRegion(string universityName)
@@ -224,6 +271,43 @@ namespace Parser.Business
         private void SaveToXml()
         {
             
+        }
+
+        private void SaveToBinary()
+        {
+            using (Stream stream = File.Open("Universities.dll", FileMode.Create))
+            {
+                var bformatter = new BinaryFormatter();
+
+                Console.WriteLine("Writing Universities Information");
+                bformatter.Serialize(stream, universities);
+            }
+        }
+
+        private bool FileExist()
+        {
+            try
+            {
+                using (Stream stream = File.Open("Universities.dll", FileMode.Open))
+                {                    
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        private void ReadFromBinary()
+        {
+            using (Stream stream = File.Open("Universities.dll", FileMode.Open))
+            {
+                var bformatter = new BinaryFormatter();
+
+                Console.WriteLine("Reading Universities Information");
+                universities = (List<UniversityData>)bformatter.Deserialize(stream);
+            }
         }
     }
 }
