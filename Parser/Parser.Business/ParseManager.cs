@@ -122,7 +122,7 @@ namespace Parser.Business
                     ParseSpecialityDetails(mainRefer + found.Groups[1].Value.ToString());
                 }
             }
-            catch (Exception ex)
+            catch
             {
             }
         }
@@ -151,9 +151,10 @@ namespace Parser.Business
                 //Нужно очистить от "колледж", "&quot" и тд
                 //По названию города в названии вуза определить область вуза
                 if (String.IsNullOrEmpty(currentUniversity.UniversityName))
-                    currentUniversity.UniversityName = universityMatch.Groups[1].Value.ToString();
-                if (String.IsNullOrEmpty(currentUniversity.RegionName))
+                {
+                    currentUniversity.UniversityName = universityName;
                     currentUniversity.RegionName = TakeRegion(universityName);
+                }                
 
                 Regex facultyRegex = new Regex(facultyPattern);
                 Match facultyMatch = facultyRegex.Match(source);
@@ -168,7 +169,7 @@ namespace Parser.Business
                 currentUniversity.AddSpecialityToFaculty(facultyName, specName);
                 //к новому или уже существующему факультету добавить специальность
 
-            }     
+            }
             catch(Exception ex)
             {
                 Console.WriteLine(ex.Message);
@@ -222,7 +223,7 @@ namespace Parser.Business
 
         private void SaveToXml()
         {
- 
+            
         }
     }
 }
