@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Net;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
@@ -9,6 +10,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.ServiceModel;
 using System.ServiceModel.Web;
+using System.Xml.Linq;
 
 namespace Parser.Business
 {
@@ -86,6 +88,14 @@ namespace Parser.Business
         private UniversityData currentUniversity;
 
         private bool IsUniversity;
+
+        Dictionary<int, string> savedRegs = new Dictionary<int, string>();
+
+        Dictionary<int, string> savedUniversities = new Dictionary<int, string>();
+
+        Dictionary<int, string> savedSpecialities = new Dictionary<int, string>();
+
+        Dictionary<int, string> savedFaculties = new Dictionary<int, string>();
 
         public ParseManager()
         {
@@ -268,9 +278,173 @@ namespace Parser.Business
             return region;
         }
 
-        private void SaveToXml()
+        public void SaveToXml()
         {
-            
+            ReadFromBinary();
+            XDocument facultDocument = new XDocument();
+            XDocument specDocument = new XDocument();
+            XDocument regionDocument = new XDocument();
+
+            SaveRegions();
+
+            SaveUniversities();
+
+            SaveFaculties();
+
+            SaveSpecialities();
+
+            SaveFacultSpec();
+
+        }
+
+        private void SaveRegions()
+        {
+            int regId = 0;
+            XDocument regionDocument = new XDocument();
+            var regions = new XElement("regions");
+
+            regionDocument.Add(regions);
+
+            foreach (var univer in this.universities)
+            {
+                if (!String.IsNullOrEmpty(univer.RegionName) && !savedRegs.ContainsValue(univer.RegionName))
+                {
+                    savedRegs.Add(regId, univer.RegionName);
+
+                    regions.Add(new XElement("region",
+                        new XElement("id", regId++),
+                        new XElement("name", univer.RegionName)));
+                }
+            }
+
+            regionDocument.Save("regions.xml");
+        }
+
+        private void SaveUniversities()
+        {
+
+            int univerId = 0;
+
+            XDocument univerDocument = new XDocument();
+
+            var universities = new XElement("universities");
+
+            univerDocument.Add(universities);
+
+            foreach(var univer in this.universities)
+            {
+                savedUniversities.Add(univerId, univer.UniversityName);
+                universities.Add(new XElement("university",
+                    new XElement("id", univerId++),
+                    new XElement("name", univer.UniversityName),
+                    new XElement("cityId", GetRegionIdByName(univer.RegionName))));
+            }
+
+            univerDocument.Save("universities.xml");
+        }
+
+        private void SaveFaculties()
+        {
+            int facultyId = 0;
+
+            XDocument facultyDocument = new XDocument();
+
+            var faculties = new XElement("faculties");
+
+            facultyDocument.Add(faculties);
+
+
+            foreach (var univer in this.universities)
+            {
+                foreach(var facult in univer.Faculties)
+                {
+                    if(!savedFaculties.ContainsValue(facult.FacultyName))
+                    {
+                        savedFaculties.Add(facultyId, facult.FacultyName);
+                        faculties.Add(new XElement("faculty",
+                            new XElement("id", facultyId++)
+                            , new XElement("name", facult.FacultyName),
+                            new XElement("univerId", GetUniversityIdByName(univer.UniversityName))));
+                    }
+                }
+            }
+
+            facultyDocument.Save("faculties.xml");
+        }
+
+        private void SaveSpecialities()
+        {
+            int specId = 0;
+
+            List<string> specNames = new List<string>();
+
+            XDocument specDocument = new XDocument();
+
+            var specialities = new XElement("specialities");
+
+            specDocument.Add(specialities);
+
+            foreach (var univer in this.universities)
+            {
+                foreach(var facult in univer.Faculties)
+                {
+                    foreach(var spec in facult.Specialities)
+                    {
+                        if(!savedSpecialities.ContainsValue(spec))
+                        {
+                            savedSpecialities.Add(specId, spec);
+                            specialities.Add(new XElement("speciality",
+                                new XElement("id", specId++),
+                                new XElement("name", spec)));
+                        }
+                    }
+                }
+            }
+
+            specDocument.Save("specialities.xml");
+        }
+
+        private void SaveFacultSpec()
+        {
+            XDocument facultSpecDocument = new XDocument();
+
+            var facultSpec = new XElement("facultSpec");
+
+            facultSpecDocument.Add(facultSpec);
+
+
+            foreach (var univer in this.universities)
+            {
+                foreach (var facult in univer.Faculties)
+                {
+                    foreach(var spec in savedSpecialities)
+                    {
+                        if(facult.Specialities.Contains(spec.Value))
+                        {
+                            facultSpec.Add(new XElement("pair",
+                                new XElement("facultId", GetFacultItByName(facult.FacultyName)),
+                                new XElement("specId", spec.Key)));
+                        }
+                    }
+                }
+            }
+
+            facultSpecDocument.Save("facultSpec.xml");
+        }
+
+        private int GetRegionIdByName(string name)
+        {
+            return savedRegs.FirstOrDefault(reg => reg.Value == name).Key;
+        }
+
+        private int GetUniversityIdByName(string name)
+        {
+            return savedUniversities.FirstOrDefault(reg => reg.Value == name).Key;
+        }
+
+        private int GetFacultItByName(string name)
+        {
+            return savedFaculties.FirstOrDefault(reg => reg.Value == name).Key;
         }
 
         private void SaveToBinary()
@@ -283,6 +457,7 @@ namespace Parser.Business
                 bformatter.Serialize(stream, universities);
             }
         }
+
 
         private bool FileExist()
         {

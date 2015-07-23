@@ -12,7 +12,8 @@ namespace Parser
         static void Main(string[] args)
         {
             ParseManager parseManager = new ParseManager();
-            parseManager.StartParse();
+            parseManager.SaveToXml();
+            Console.ReadLine();
         }
     }
 }
