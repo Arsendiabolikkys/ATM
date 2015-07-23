@@ -102,7 +102,7 @@ namespace Parser.Business
 
         private const string mainRefer = "http://abit-poisk.org.ua/score/direction/";
 
-        private const string fileName = "Universities.dll";
+        private const string fileName = "Universities2.dll";
 
         private const string bachelorPattern = @"<tr>(?:[\s\w\/\\]*?)?<td(?:[а-яА-ЯіїєІЇЄ=\s\w""\\-]*?)?>(?:[\s\w.\/\\]*?)?(?:Бакалавр|Спеціаліст на основі повної загальної середньої освіти )(?:[\s\w.\/\\]*?)?</td>(?:[:;""',.а-яА-ЯіїєІЇЄ=?()\s\w\/\\<>-]*?)</tr>";
 
@@ -182,21 +182,8 @@ namespace Parser.Business
         {
             currentUniversity = new UniversityData();
             string text;
-            HttpWebRequest req = null;
-            HttpWebResponse resp = null;
-
-            try
-            {
-                req = (HttpWebRequest)HttpWebRequest.Create(pageRefer);
-                resp = (HttpWebResponse)req.GetResponse();
-            }
-            catch
-            {
-                while (resp == null)
-                {
-                    resp = (HttpWebResponse)req.GetResponse();
-                }
-            }            
+            HttpWebRequest req = (HttpWebRequest)HttpWebRequest.Create(pageRefer);
+            HttpWebResponse resp = (HttpWebResponse)req.GetResponse();            
 
             using (StreamReader stream = new StreamReader(resp.GetResponseStream(), Encoding.UTF8))
             {
@@ -235,7 +222,6 @@ namespace Parser.Business
                 Match universityMatch = univerRegex.Match(source);
                 string universityName = universityMatch.Groups[1].Value.ToString();
 
-                RemoveQuot(universityName);
                 if (IsCollege(universityName))
                     throw new Exception("Коледж");
                 //Нужно очистить от "колледж", "&quot" и тд
@@ -266,11 +252,6 @@ namespace Parser.Business
                 Console.WriteLine(ex.Message);
                 IsUniversity = false;
             }
-        }
-
-        private void RemoveQuot(string tmp)
-        {
-            tmp.Replace("&quot", "\"");
         }
 
         private bool IsCollege(string universityName)
