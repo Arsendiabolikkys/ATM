@@ -183,7 +183,7 @@ namespace Parser.Business
 
         private bool IsCollege(string universityName)
         {
-            return universityName.Contains("коледж");
+            return universityName.Contains("коледж") || universityName.Contains("Коледж");
         }
 
         private string TakeRegion(string universityName)
