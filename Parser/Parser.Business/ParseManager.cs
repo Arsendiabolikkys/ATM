@@ -279,21 +279,23 @@ namespace Parser.Business
 
         public void SaveToXml()
         {
-            ReadFromBinary();
-            XDocument facultDocument = new XDocument();
-            XDocument specDocument = new XDocument();
-            XDocument regionDocument = new XDocument();
+            if (FileExist())
+            {
+                ReadFromBinary();
+                XDocument facultDocument = new XDocument();
+                XDocument specDocument = new XDocument();
+                XDocument regionDocument = new XDocument();
 
-            SaveRegions();
+                SaveRegions();
 
-            SaveUniversities();
+                SaveUniversities();
 
-            SaveFaculties();
+                SaveFaculties();
 
-            SaveSpecialities();
+                SaveSpecialities();
 
-            SaveFacultSpec();
-
+                SaveFacultSpec();
+            }
         }
 
         private void SaveRegions()
